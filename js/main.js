@@ -31,13 +31,13 @@ map.classList.remove('map--faded');
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-var getRandomValue = function(data) {
+var getRandomValue = function (data) {
   var randomIndex = Math.floor(Math.random() * data.length);
   return data[randomIndex];
 };
 
 // функция генерации случайных данных
-var generateAds = function(quantity) {
+var generateAds = function (quantity) {
   var ads = [];
   for (var i = 0; i < quantity; i++) {
     var ad = {
@@ -70,7 +70,7 @@ var generateAds = function(quantity) {
 };
 
 // функция создания DOM-элемента на основе JS-объекта
-var renderPin = function(ad) {
+var renderPin = function (ad) {
   var pinElement = pinTemplate.cloneNode(true);
 
   pinElement.style.left = ad.location.x - PIN_WIDTH + 'px';
@@ -82,7 +82,7 @@ var renderPin = function(ad) {
 };
 
 // функцию заполнения блока DOM-элементами на основе массива JS-объектов
-var insertPins = function(ads) {
+var insertPins = function (ads) {
 
   var fragment = document.createDocumentFragment();
 
@@ -91,6 +91,6 @@ var insertPins = function(ads) {
     fragment.appendChild(pinItem);
   }
   return fragment;
-}
+};
 
 pinList.append(insertPins(generateAds(ADS_QUANTITY)));
