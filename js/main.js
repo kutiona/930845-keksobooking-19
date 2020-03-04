@@ -39,8 +39,8 @@ function getRandomArray(arr) {
   for (var i = 0; i < arr.length; i++) {
     copyArray[i] = arr[i];
   }
-  var RandomArrayLength = getRandomInteger(1, arr.length);
-  for (i = 0; i < RandomArrayLength; i++) {
+  var randomArrayLength = getRandomInteger(1, arr.length);
+  for (i = 0; i < randomArrayLength; i++) {
     var randomIndex = getRandomValue(copyArray.length);
 
     randomArray[i] = copyArray[randomIndex];
