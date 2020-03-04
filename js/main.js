@@ -67,7 +67,7 @@ var generateAds = function (quantity) {
       },
       'offer': {
         'title': 'Заголовок предложения' + (i + 1),
-        'address': 'location_x' + ', ' + 'location_y',
+        'address': locationX + ', ' + locationY,
         'price': getRandomInteger(0, MAX_OFFER_PRICES),
         'type': getRandomValue(OFFER_TYPES),
         'rooms': getRandomInteger(1, MAX_OFFER_ROOMS),
