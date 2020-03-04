@@ -28,8 +28,13 @@ function getRandomInteger(min, max) {
 }
 
 var getRandomValue = function (data) {
-  var randomIndex = Math.floor(Math.random() * data.length);
-  return data[randomIndex];
+  var randomValue = Math.floor(Math.random() * data.length);
+  return data[randomValue];
+};
+
+var getRandomNumber = function (num) {
+  var randomIndex = Math.floor(Math.random() * num);
+  return randomIndex;
 };
 
 // Функция генерации массива строк случайной длины
@@ -41,7 +46,7 @@ function getRandomArray(arr) {
   }
   var randomArrayLength = getRandomInteger(1, arr.length);
   for (i = 0; i < randomArrayLength; i++) {
-    var randomIndex = getRandomValue(copyArray.length);
+    var randomIndex = getRandomNumber(copyArray.length);
 
     randomArray[i] = copyArray[randomIndex];
     copyArray.splice(randomIndex, 1);
@@ -62,7 +67,7 @@ var generateAds = function (quantity) {
       },
       'offer': {
         'title': 'Заголовок предложения' + (i + 1),
-        'address': 'location_x,  location_y',
+        'address': 'location_x' + ', ' + 'location_y',
         'price': getRandomInteger(0, MAX_OFFER_PRICES),
         'type': getRandomValue(OFFER_TYPES),
         'rooms': getRandomInteger(1, MAX_OFFER_ROOMS),
