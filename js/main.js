@@ -14,17 +14,22 @@ var MAX_OFFER_GUESTS = 8;
 var OFFER_CHECKINS = ['12:00', '13:00', '14:00'];
 var OFFER_CHECKOUTS = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+// var map = document.querySelector('.map');
+// map.classList.remove('map--faded');
 
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-// var adForm = document.querySelector('.ad-form');
-// var adFormInput = document.querySelectorAll('.ad-form input');
-// var adFormSelect = document.querySelectorAll('.ad-form select');
-// adForm.setAttribute('disabled', 'disabled');
-// adFormSelect.setAttribute("disabled", "disabled");
+var adFormInputs = document.querySelectorAll('.ad-form input');
+for (var a = 0; a < adFormInputs.length; a++) {
+  var adFormInput = adFormInputs[a];
+  adFormInput.setAttribute('disabled', 'disabled');
+}
+
+var adFormSelects = document.querySelectorAll('.ad-form select');
+for (var b = 0; b < adFormSelects.length; b++) {
+  var adFormSelect = adFormSelects[a];
+adFormSelect.setAttribute('disabled', 'disabled');
 
 // Функция генерации случайного целого числа
 function getRandomInteger(min, max) {
