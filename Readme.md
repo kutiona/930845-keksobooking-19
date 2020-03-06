@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ольга Лойкевич](https://up.htmlacademy.ru/javascript/19/user/930845).
-* Наставник: `Неизвестно`.
+* Наставник: [Елена Грицук](https://htmlacademy.ru/profile/id199079).
 
 ---
 

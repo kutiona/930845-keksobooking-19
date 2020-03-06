@@ -40,6 +40,11 @@ for (var b = 0; b < adFormSelects.length; b++) {
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPinMain = document.querySelector('.map__pin--main');
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
+
+var pinList = document.querySelector('.map__pins');
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 // Функция генерации случайного целого числа
 function getRandomInteger(min, max) {
@@ -169,3 +174,5 @@ mapPinMain.addEventListener('keydown', function (evt) {
     getActivPageState();
   }
 });
+
+pinList.append(insertPins(generateAds(ADS_QUANTITY)));
