@@ -14,22 +14,26 @@ var MAX_OFFER_GUESTS = 8;
 var OFFER_CHECKINS = ['12:00', '13:00', '14:00'];
 var OFFER_CHECKOUTS = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-// var map = document.querySelector('.map');
-// map.classList.remove('map--faded');
-
-var pinList = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
+var ENTER_KEY = 'Enter';
+var map = document.querySelector('.map');
+var adForm = document.querySelector('.ad-form');
 var adFormInputs = document.querySelectorAll('.ad-form input');
+
 for (var a = 0; a < adFormInputs.length; a++) {
   var adFormInput = adFormInputs[a];
   adFormInput.setAttribute('disabled', 'disabled');
 }
 
 var adFormSelects = document.querySelectorAll('.ad-form select');
+
 for (var b = 0; b < adFormSelects.length; b++) {
   var adFormSelect = adFormSelects[a];
-adFormSelect.setAttribute('disabled', 'disabled');
+  adFormSelect.setAttribute('disabled', 'disabled');
+}
+
+var pinList = document.querySelector('.map__pins');
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var mapPinMain = document.querySelector('.map__pin--main');
 
 // Функция генерации случайного целого числа
 function getRandomInteger(min, max) {
@@ -125,4 +129,30 @@ var insertPins = function (ads) {
   return fragment;
 };
 
+// Функция перевода страницы в активное состояние
+var getActivPageState = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('.ad-form--disabled');
+
+  for (a = 0; a < adFormInputs.length; a++) {
+    adFormInput.removeAttribute('disabled');
+  }
+
+  for (b = 0; b < adFormSelects.length; b++) {
+    adFormSelect.removeAttribute('disabled');
+  }
+};
+
 pinList.append(insertPins(generateAds(ADS_QUANTITY)));
+
+mapPinMain.addEventListener('mousedown', function (evt) {
+  if (evt.which === 1) {
+    getActivPageState();
+  }
+});
+
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.key === ENTER_KEY) {
+    getActivPageState();
+  }
+});
