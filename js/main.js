@@ -8,6 +8,12 @@ var END_LOCATION_X = 1200;
 var START_LOCATION_Y = 130;
 var END_LOCATION_Y = 630;
 var MAX_OFFER_PRICES = 10000;
+// var PIN_LEFT_MAIN = 62; // Ширина главной метки
+// var PIN_TOP_MAIN = 84; // Высота главной метки
+// var PIN_LEFT = 50; // Ширина неглавной метки
+// var PIN_TOP = 70; // Высота неглавной метки
+var MAP_PIN_LEFT = 570;
+var MAP_PIN_TOP = 375;
 var OFFER_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var MAX_OFFER_ROOMS = 4;
 var MAX_OFFER_GUESTS = 8;
@@ -141,6 +147,13 @@ var getActivPageState = function () {
   for (b = 0; b < adFormSelects.length; b++) {
     adFormSelect.removeAttribute('disabled');
   }
+};
+
+var addressInput = document.querySelector('#address');
+
+// Функция добавления адреса в поле формы
+var fillingOutInputAddress = function () {
+ adForm.querySelector('#address').textContent = (locationX + PIN_LEFT_MAIN/2) + ', ' + (locationY + PIN_TOP_MAIN/2);
 };
 
 pinList.append(insertPins(generateAds(ADS_QUANTITY)));
