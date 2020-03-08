@@ -21,7 +21,6 @@ var OFFER_CHECKINS = ['12:00', '13:00', '14:00'];
 var OFFER_CHECKOUTS = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var ENTER_KEY = 'Enter';
-var map = document.querySelector('.map');
 var adForm = document.querySelector('.ad-form');
 var adFormInputs = document.querySelectorAll('.ad-form input');
 
@@ -41,7 +40,6 @@ var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPinMain = document.querySelector('.map__pin--main');
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
