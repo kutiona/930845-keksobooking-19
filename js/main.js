@@ -8,12 +8,6 @@ var END_LOCATION_X = 1200;
 var START_LOCATION_Y = 130;
 var END_LOCATION_Y = 630;
 var MAX_OFFER_PRICES = 10000;
-// var PIN_LEFT_MAIN = 62; // Ширина главной метки
-// var PIN_TOP_MAIN = 84; // Высота главной метки
-// var PIN_LEFT = 50; // Ширина неглавной метки
-// var PIN_TOP = 70; // Высота неглавной метки
-var MAP_PIN_LEFT = 570;
-var MAP_PIN_TOP = 375;
 var OFFER_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var MAX_OFFER_ROOMS = 4;
 var MAX_OFFER_GUESTS = 8;
@@ -22,27 +16,30 @@ var OFFER_CHECKOUTS = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var ENTER_KEY = 'Enter';
 var adForm = document.querySelector('.ad-form');
+var mapFilters = document.querySelector('.map__filters');
+mapFilters.setAttribute('disabled', 'disabled');
 var adFormInputs = document.querySelectorAll('.ad-form input');
-
-for (var a = 0; a < adFormInputs.length; a++) {
-  var adFormInput = adFormInputs[a];
-  adFormInput.setAttribute('disabled', 'disabled');
-}
-
+var AdFormInputsArray = Array.from(adFormInputs);
 var adFormSelects = document.querySelectorAll('.ad-form select');
+var AdFormSelectsArray = Array.from(adFormSelects);
 
-for (var b = 0; b < adFormSelects.length; b++) {
-  var adFormSelect = adFormSelects[a];
-  adFormSelect.setAttribute('disabled', 'disabled');
+// var getAdFormInputsDisabled = function () {
+for (var a = 0; a < AdFormInputsArray.length; a++) {
+  AdFormInputsArray[a].setAttribute('disabled', 'disabled');
 }
+// };
+
+// var getAdFormSelectsDisabled = function () {
+for (var b = 0; b < AdFormSelectsArray.length; b++) {
+  AdFormSelectsArray[b].setAttribute('disabled', 'disabled');
+}
+// };
 
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPinMain = document.querySelector('.map__pin--main');
 var map = document.querySelector('.map');
 
-var pinList = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 // Функция генерации случайного целого числа
 function getRandomInteger(min, max) {
@@ -142,22 +139,23 @@ var insertPins = function (ads) {
 var getActivPageState = function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('.ad-form--disabled');
+  mapFilters.removeAttribute('disabled');
 
-  for (a = 0; a < adFormInputs.length; a++) {
-    adFormInput.removeAttribute('disabled');
+  for (a = 0; a < AdFormInputsArray.length; a++) {
+    AdFormInputsArray[a].removeAttribute('disabled');
   }
 
-  for (b = 0; b < adFormSelects.length; b++) {
-    adFormSelect.removeAttribute('disabled');
+  for (b = 0; b < AdFormSelectsArray.length; b++) {
+    AdFormSelectsArray[b].removeAttribute('disabled');
   }
 };
 
-var addressInput = document.querySelector('#address');
+// var addressInput = document.querySelector('#address');
 
-// Функция добавления адреса в поле формы
-var fillingOutInputAddress = function () {
- adForm.querySelector('#address').textContent = (locationX + PIN_LEFT_MAIN/2) + ', ' + (locationY + PIN_TOP_MAIN/2);
-};
+// // Функция добавления адреса в поле формы
+// var fillingOutInputAddress = function () {
+//  adForm.querySelector('#address').textContent = (locationX + PIN_LEFT_MAIN/2) + ', ' + (locationY + PIN_TOP_MAIN/2);
+// };
 
 pinList.append(insertPins(generateAds(ADS_QUANTITY)));
 
