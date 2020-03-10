@@ -15,44 +15,32 @@ var OFFER_CHECKINS = ['12:00', '13:00', '14:00'];
 var OFFER_CHECKOUTS = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var ENTER_KEY = 'Enter';
+var PIN_LEFT_MAIN = 62; // Ширина главной метки
+var PIN_TOP_MAIN = 84; // Высота главной метки
 var adForm = document.querySelector('.ad-form');
 var mapFilters = document.querySelector('.map__filters');
-mapFilters.setAttribute('disabled', 'disabled');
 var adFormInputs = document.querySelectorAll('.ad-form input');
-var AdFormInputsArray = Array.from(adFormInputs);
 var adFormSelects = document.querySelectorAll('.ad-form select');
-var AdFormSelectsArray = Array.from(adFormSelects);
-
-// var getAdFormInputsDisabled = function () {
-for (var a = 0; a < AdFormInputsArray.length; a++) {
-  AdFormInputsArray[a].setAttribute('disabled', 'disabled');
-}
-// };
-
-// var getAdFormSelectsDisabled = function () {
-for (var b = 0; b < AdFormSelectsArray.length; b++) {
-  AdFormSelectsArray[b].setAttribute('disabled', 'disabled');
-}
-// };
-
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPinMain = document.querySelector('.map__pin--main');
 var map = document.querySelector('.map');
+var addressInput = document.querySelector('#address');
 
-
-// Функция генерации случайного целого числа
+// Функция генерации случайного целого числа в диапазоне
 function getRandomInteger(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+// Функция генерации случайного массива данных
 var getRandomArrayValue = function (data) {
   var randomValue = Math.floor(Math.random() * data.length);
   return data[randomValue];
 };
 
+// Функция генерации случайного целого числа
 var getRandomNumber = function (num) {
   var randomIndex = Math.floor(Math.random() * num);
   return randomIndex;
@@ -75,7 +63,7 @@ function getRandomArray(arr) {
   return randomArray;
 }
 
-// функция генерации случайных данных
+// Функция генерации случайных данных в объявлении
 var generateAds = function (quantity) {
   var ads = [];
   for (var i = 0; i < quantity; i++) {
@@ -135,33 +123,49 @@ var insertPins = function (ads) {
   return fragment;
 };
 
+// Функция добавления адреса в поле формы
+var fillingOutInputAddress = function () {
+  addressInput.setAttribute('value', (mapPinMain.offsetLeft + PIN_LEFT_MAIN / 2) + ', ' + (mapPinMain.offsetTop + PIN_TOP_MAIN));
+};
+
+// Функция перевода страницы в неактивное состояние
+var getInitialPageState = function () {
+  mapFilters.setAttribute('disabled', 'disabled');
+  fillingOutInputAddress();
+
+  for (var i = 0; i < adFormInputs.length; i++) {
+    adFormInputs[i].setAttribute('disabled', 'disabled');
+  }
+
+  for (var j = 0; j < adFormSelects.length; j++) {
+    adFormSelects[j].setAttribute('disabled', 'disabled');
+  }
+
+};
+
 // Функция перевода страницы в активное состояние
 var getActivPageState = function () {
+  pinList.append(insertPins(generateAds(ADS_QUANTITY)));
   map.classList.remove('map--faded');
   adForm.classList.remove('.ad-form--disabled');
   mapFilters.removeAttribute('disabled');
+  fillingOutInputAddress();
 
-  for (a = 0; a < AdFormInputsArray.length; a++) {
-    AdFormInputsArray[a].removeAttribute('disabled');
+  for (var i = 0; i < adFormInputs.length; i++) {
+    adFormInputs[i].removeAttribute('disabled');
   }
 
-  for (b = 0; b < AdFormSelectsArray.length; b++) {
-    AdFormSelectsArray[b].removeAttribute('disabled');
+  for (var j = 0; j < adFormSelects.length; j++) {
+    adFormSelects[j].removeAttribute('disabled');
   }
 };
 
-// var addressInput = document.querySelector('#address');
-
-// // Функция добавления адреса в поле формы
-// var fillingOutInputAddress = function () {
-//  adForm.querySelector('#address').textContent = (locationX + PIN_LEFT_MAIN/2) + ', ' + (locationY + PIN_TOP_MAIN/2);
-// };
-
-pinList.append(insertPins(generateAds(ADS_QUANTITY)));
+getInitialPageState();
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.which === 1) {
     getActivPageState();
+    fillingOutInputAddress();
   }
 });
 
@@ -170,5 +174,3 @@ mapPinMain.addEventListener('keydown', function (evt) {
     getActivPageState();
   }
 });
-
-pinList.append(insertPins(generateAds(ADS_QUANTITY)));
