@@ -18,9 +18,11 @@ var ENTER_KEY = 'Enter';
 var PIN_LEFT_MAIN = 62; // Ширина главной метки
 var PIN_TOP_MAIN = 84; // Высота главной метки
 var adForm = document.querySelector('.ad-form');
-var mapFilters = document.querySelector('.map__filters');
 var adFormInputs = document.querySelectorAll('.ad-form input');
 var adFormSelects = document.querySelectorAll('.ad-form select');
+var mapFilters = document.querySelector('.map__filters');
+var mapFiltersInputs = document.querySelectorAll('.map__filters input');
+var mapFiltersSelects = document.querySelectorAll('.map__filters select');
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPinMain = document.querySelector('.map__pin--main');
@@ -141,6 +143,14 @@ var getInitialPageState = function () {
     adFormSelects[j].setAttribute('disabled', 'disabled');
   }
 
+  for (var a = 0; a < mapFiltersInputs.length; a++) {
+    mapFiltersInputs[a].setAttribute('disabled', 'disabled');
+  }
+
+  for (var b = 0; b < mapFiltersSelects.length; b++) {
+    mapFiltersSelects[b].setAttribute('disabled', 'disabled');
+  }
+
 };
 
 // Функция перевода страницы в активное состояние
@@ -157,6 +167,14 @@ var getActivPageState = function () {
 
   for (var j = 0; j < adFormSelects.length; j++) {
     adFormSelects[j].removeAttribute('disabled');
+  }
+
+  for (var a = 0; a < mapFiltersInputs.length; a++) {
+    mapFiltersInputs[a].removeAttribute('disabled');
+  }
+
+  for (var b = 0; b < mapFiltersSelects.length; b++) {
+    mapFiltersSelects[b].removeAttribute('disabled');
   }
 };
 
