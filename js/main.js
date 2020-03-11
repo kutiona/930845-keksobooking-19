@@ -18,11 +18,9 @@ var ENTER_KEY = 'Enter';
 var PIN_LEFT_MAIN = 62; // Ширина главной метки
 var PIN_TOP_MAIN = 84; // Высота главной метки
 var adForm = document.querySelector('.ad-form');
-var adFormInputs = document.querySelectorAll('.ad-form input');
-var adFormSelects = document.querySelectorAll('.ad-form select');
+var adFormChildren = document.querySelector('.ad-form').children;
 var mapFilters = document.querySelector('.map__filters');
-var mapFiltersInputs = document.querySelectorAll('.map__filters input');
-var mapFiltersSelects = document.querySelectorAll('.map__filters select');
+var mapFiltersChildren = document.querySelector('.map__filters').children;
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPinMain = document.querySelector('.map__pin--main');
@@ -126,69 +124,52 @@ var insertPins = function (ads) {
 };
 
 // Функция добавления адреса в поле формы
-var fillingOutInputAddress = function () {
+var fillInputAddress = function () {
   addressInput.setAttribute('value', (mapPinMain.offsetLeft + PIN_LEFT_MAIN / 2) + ', ' + (mapPinMain.offsetTop + PIN_TOP_MAIN));
 };
 
 // Функция перевода страницы в неактивное состояние
-var getInitialPageState = function () {
+var setInitinalState = function () {
+
   mapFilters.setAttribute('disabled', 'disabled');
-  fillingOutInputAddress();
+  fillInputAddress();
 
-  for (var i = 0; i < adFormInputs.length; i++) {
-    adFormInputs[i].setAttribute('disabled', 'disabled');
+  for (var i = 0; i < adFormChildren.length; i++) {
+    adFormChildren[i].setAttribute('disabled', 'disabled');
   }
 
-  for (var j = 0; j < adFormSelects.length; j++) {
-    adFormSelects[j].setAttribute('disabled', 'disabled');
+  for (var j = 0; j < mapFiltersChildren.length; j++) {
+    mapFiltersChildren[j].setAttribute('disabled', 'disabled');
   }
-
-  for (var a = 0; a < mapFiltersInputs.length; a++) {
-    mapFiltersInputs[a].setAttribute('disabled', 'disabled');
-  }
-
-  for (var b = 0; b < mapFiltersSelects.length; b++) {
-    mapFiltersSelects[b].setAttribute('disabled', 'disabled');
-  }
-
 };
 
 // Функция перевода страницы в активное состояние
-var getActivPageState = function () {
+var setActivePage = function () {
   pinList.append(insertPins(generateAds(ADS_QUANTITY)));
   map.classList.remove('map--faded');
   adForm.classList.remove('.ad-form--disabled');
   mapFilters.removeAttribute('disabled');
-  fillingOutInputAddress();
 
-  for (var i = 0; i < adFormInputs.length; i++) {
-    adFormInputs[i].removeAttribute('disabled');
+  for (var i = 0; i < adFormChildren.length; i++) {
+    adFormChildren[i].removeAttribute('disabled');
   }
 
-  for (var j = 0; j < adFormSelects.length; j++) {
-    adFormSelects[j].removeAttribute('disabled');
-  }
-
-  for (var a = 0; a < mapFiltersInputs.length; a++) {
-    mapFiltersInputs[a].removeAttribute('disabled');
-  }
-
-  for (var b = 0; b < mapFiltersSelects.length; b++) {
-    mapFiltersSelects[b].removeAttribute('disabled');
+  for (var j = 0; j < mapFiltersChildren.length; j++) {
+    mapFiltersChildren[j].removeAttribute('disabled');
   }
 };
 
-getInitialPageState();
+setInitinalState();
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.which === 1) {
-    getActivPageState();
-    fillingOutInputAddress();
+    setActivePage();
+    fillInputAddress();
   }
 });
 
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.key === ENTER_KEY) {
-    getActivPageState();
+    setActivePage();
   }
 });
