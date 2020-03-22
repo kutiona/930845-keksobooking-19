@@ -18,14 +18,22 @@ var ENTER_KEY = 'Enter';
 var PIN_LEFT_MAIN = 62; // Ширина главной метки
 var PIN_TOP_MAIN = 84; // Высота главной метки
 var adForm = document.querySelector('.ad-form');
-var adFormChildren = document.querySelector('.ad-form').children;
+var adFormMapFiltersChildren = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters fieldset');
 var mapFilters = document.querySelector('.map__filters');
-var mapFiltersChildren = document.querySelector('.map__filters').children;
+// var mapFiltersChildren = document.querySelector('.map__filters').children;
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPinMain = document.querySelector('.map__pin--main');
 var map = document.querySelector('.map');
-var addressInput = document.querySelector('#address');
+var addressInput = adForm.querySelector('#address');
+var roomNumber = adForm.querySelector('#room_number');
+var guestNumber = adForm.querySelector('#capacity');
+var guestsRoomsMap = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0]
+};
 
 // Функция генерации случайного целого числа в диапазоне
 function getRandomInteger(min, max) {
@@ -134,28 +142,34 @@ var setInitinalState = function () {
   mapFilters.setAttribute('disabled', 'disabled');
   fillInputAddress();
 
-  for (var i = 0; i < adFormChildren.length; i++) {
-    adFormChildren[i].setAttribute('disabled', 'disabled');
-  }
-
-  for (var j = 0; j < mapFiltersChildren.length; j++) {
-    mapFiltersChildren[j].setAttribute('disabled', 'disabled');
+  for (var i = 0; i < adFormMapFiltersChildren.length; i++) {
+    adFormMapFiltersChildren[i].setAttribute('disabled', 'disabled');
   }
 };
+
+function checkGuestRoomCorrespondence(evt) {
+  var roomsNumber = Number(adForm.querySelector('#room_number').value);
+  var guestsNumber = Number(adForm.querySelector('#capacity').value);
+
+  if (guestsRoomsMap[roomsNumber].indexOf(guestsNumber) === -1) {
+    evt.target.setCustomValidity('Число гостей и комнат должно совпадать');
+  } else {
+    evt.target.setCustomValidity('');
+  }
+}
 
 // Функция перевода страницы в активное состояние
 var setActivePage = function () {
   pinList.append(insertPins(generateAds(ADS_QUANTITY)));
   map.classList.remove('map--faded');
-  adForm.classList.remove('.ad-form--disabled');
+  adForm.classList.remove('ad-form--disabled');
   mapFilters.removeAttribute('disabled');
+  roomNumber.addEventListener('change', checkGuestRoomCorrespondence);
+  guestNumber.addEventListener('change', checkGuestRoomCorrespondence);
 
-  for (var i = 0; i < adFormChildren.length; i++) {
-    adFormChildren[i].removeAttribute('disabled');
-  }
 
-  for (var j = 0; j < mapFiltersChildren.length; j++) {
-    mapFiltersChildren[j].removeAttribute('disabled');
+  for (var i = 0; i < adFormMapFiltersChildren.length; i++) {
+    adFormMapFiltersChildren[i].removeAttribute('disabled');
   }
 };
 
